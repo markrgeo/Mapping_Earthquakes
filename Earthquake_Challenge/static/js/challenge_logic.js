@@ -46,7 +46,7 @@ let majorEarthQuakes = new L.LayerGroup();
 let overlays = {
   "Earthquakes": allEarthQuakes,
   "Tectonic Plates": tectonicPlates,
-  "Major Earthquakes": majorEarthQuakes
+  "Major Earthquakes": majorEarthQuakes,
 };
 
 // Then we add a control to the map that will allow the user to change which
@@ -114,15 +114,16 @@ d3.json("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geoj
      onEachFeature: function(feature, layer) {
       layer.bindPopup("Magnitude: " + feature.properties.mag + "<br>Location: " + feature.properties.place);
     }
-  }).addTo(allEarthquakes);
+  }).addTo(allEarthQuakes);
 
   // Then we add the earthquake layer to our map.
   allEarthQuakes.addTo(map);
   tectonicPlates.addTo(map);
 
   // 3. Retrieve the major earthquake GeoJSON data >4.5 mag for the week.
-  let majorEarthQuakes = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_week.geojson";
-  d3.json(majorEarthQuakes).then(function(data) {
+  let majorEQs = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_week.geojson";
+  d3.json(majorEQs).then(function(data) {
+    
 
   // 4. Use the same style as the earthquake data.
   function styleInfo(feature) {
@@ -143,9 +144,9 @@ d3.json("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geoj
       return "#FA38FA";
     }
     if (magnitude > 4) {
-     return "#F57C0A";
+     return "#030EFD";
     }
-    return "#FCF904";
+    return "#03FE03";
   }
 
   // 6. Use the function that determines the radius of the earthquake marker based on its magnitude.
@@ -171,7 +172,7 @@ d3.json("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geoj
 });
 
   // 8. Add the major earthquakes layer to the map.
-  majorEarthQuakes.addTo(map);
+  majorEQs.addTo(map);
 
   // 9. Close the braces and parentheses for the major earthquake data.
 });
